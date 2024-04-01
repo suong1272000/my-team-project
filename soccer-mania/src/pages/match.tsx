@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // pages/index.tsx
 import React from 'react';
 import '../styles/global.css';
@@ -13,7 +14,6 @@ interface Match {
 const matches = [
 	{ id: 1, time: '오전 3:30', homeTeam: '뉴캐슬', awayTeam: '에버튼' },
 	{ id: 2, time: '오전 3:30', homeTeam: '노팅엄 포레스트', awayTeam: '풀럼' },
-	// 여기서부터 추가된 가짜 데이터입니다
 	{ id: 3, time: '오전 3:45', homeTeam: '본머스', awayTeam: '크리스탈 팰리스' },
 	{ id: 4, time: '오전 3:45', homeTeam: '번리', awayTeam: '울버햄튼' },
 	{ id: 5, time: '오전 4:15', homeTeam: '웨스트 햄', awayTeam: '토트넘' },
@@ -73,3 +73,29 @@ export default HomePage;
 // 	maxWidth: '600px';
 // 	margin: '0 auto';
 // }
+=======
+import { GetServerSideProps } from "next";
+import { parse } from "cookie";
+
+export const getServerSideProps: GetServerSideProps = async (
+	context
+): Promise<any> => {
+	const { req } = context;
+	const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
+	const userAuth = cookies.success == "true";
+	if (!userAuth) {
+		return {
+			redirect: {
+				destination: "/login",
+			},
+		};
+	}
+	return {
+		props: {},
+	};
+};
+const Match = () => {
+	return <div>매치 페이지 입니다.</div>;
+};
+export default Match;
+>>>>>>> 7bb83a6 (feat: 페이지 수정)
